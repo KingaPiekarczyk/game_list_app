@@ -1,0 +1,258 @@
+﻿<Window x:Class="games_list_app.Views.AddEditGameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add/Edit Game" Height="400" Width="550"
+        WindowStartupLocation="CenterOwner">
+
+    <Window.Resources>
+
+        <ControlTemplate x:Key="RightErrorTemplate">
+            <DockPanel LastChildFill="True">
+                <AdornedElementPlaceholder/>
+
+                <Border Background="#FDECF4"
+                CornerRadius="6"
+                Padding="6,2"
+                Margin="8,0,0,0"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right">
+                    <TextBlock Text="{Binding [0].ErrorContent}"
+                       Foreground="#C2527A"
+                       FontSize="12"
+                       FontFamily="Segoe UI"
+                       VerticalAlignment="Center"/>
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+
+
+
+        <Style TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate" Value="{StaticResource RightErrorTemplate}"/>
+            <Setter Property="Validation.ValidationAdornerSite" Value="{Binding RelativeSource={RelativeSource Self}}"/>
+            <Setter Property="Background" Value="#E8D7F1"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <AdornerDecorator>
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="6">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </AdornerDecorator>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="#444"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="#E8D7F1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid Margin="0,0,-40,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="24"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border x:Name="Border"
+                                    Grid.ColumnSpan="2"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="6"
+                                    Padding="4"
+                                    SnapsToDevicePixels="True"/>
+
+                            <ContentPresenter
+                                Margin="6,0,4,0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Content="{TemplateBinding SelectionBoxItem}"
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"/>
+
+                            <ToggleButton x:Name="DropDownButton"
+                                          Grid.Column="1"
+                                          Focusable="False"
+                                          Background="#E8ACF1"
+                                          BorderThickness="0"
+                                          Cursor="Hand"
+                                          IsChecked="{Binding IsDropDownOpen,
+                                                              RelativeSource={RelativeSource TemplatedParent},
+                                                              Mode=TwoWay}">
+                                <Path Data="M 0 0 L 4 4 L 8 0 Z"
+                                      Fill="White"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                            </ToggleButton>
+
+                            <Popup x:Name="PART_Popup"
+                                   Placement="Bottom"
+                                   AllowsTransparency="True"
+                                   Focusable="False"
+                                   IsOpen="{Binding IsDropDownOpen,
+                                                    RelativeSource={RelativeSource TemplatedParent}}">
+                                <Border Background="White"
+                                        BorderBrush="#E8ACF1"
+                                        BorderThickness="1"
+                                        CornerRadius="6"
+                                        Padding="4">
+                                    <ScrollViewer>
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#E8ACF1"/>
+                            </Trigger>
+
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#E8ACF1"/>
+                                <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#E8ACF1"/>
+                                <Setter TargetName="Border" Property="Background" Value="#FFF4F7"/>
+                                <Setter TargetName="Border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="CheckBox">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#555"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Border x:Name="Box"
+                                    Width="18" Height="18"
+                                    CornerRadius="4"
+                                    Background="#E8D7F1"
+                                    BorderBrush="#E0E0E0"
+                                    BorderThickness="1"
+                                    Margin="0,0,8,0">
+                                <Path x:Name="CheckMark"
+                                      Data="M 4 9 L 8 13 L 14 5"
+                                      Stroke="White"
+                                      StrokeThickness="2"
+                                      Visibility="Collapsed"/>
+                            </Border>
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Box" Property="Background" Value="#E8ACF1"/>
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <AdornerDecorator>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" MinWidth="250" MaxWidth="350"/>
+            </Grid.ColumnDefinitions>
+
+
+
+            <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="1,0,69,8" Width="280"
+         Text="{Binding Game.Name,
+                        UpdateSourceTrigger=PropertyChanged,
+                        ValidatesOnDataErrors=True,
+                        NotifyOnValidationError=True}" />
+
+            <TextBlock Text="Genre:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="1,0,69,8" Width="280"
+         Text="{Binding Game.Genre,
+                        UpdateSourceTrigger=PropertyChanged,
+                        ValidatesOnDataErrors=True,
+                        NotifyOnValidationError=True}" />
+
+            <TextBlock Text="Platform:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="1,0,69,8" Width="280"
+         Text="{Binding Game.Platform,
+                        UpdateSourceTrigger=PropertyChanged,
+                        ValidatesOnDataErrors=True,
+                        NotifyOnValidationError=True}" />
+
+            <TextBlock Text="Year:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <ComboBox ItemsSource="{Binding R_Years}"
+          SelectedItem="{Binding Game.ReleaseYear, Mode=TwoWay, 
+                         UpdateSourceTrigger=PropertyChanged,
+                         ValidatesOnDataErrors=True,
+                         NotifyOnValidationError=True}"
+                      
+          Grid.Row="3" Grid.Column="1"
+          Margin="0,0,0,8"
+          Background="#E8D7F1"
+          HorizontalAlignment="Left"
+          Width="50"/>
+
+            <TextBlock Text="Playtime hours:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,8"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="0,3,245,5" Width="105"
+         Text="{Binding Game.PlayTimeHours,
+                        UpdateSourceTrigger=PropertyChanged,
+                        ValidatesOnDataErrors=True,
+                        NotifyOnValidationError=True}" />
+
+
+            <TextBlock Text="Completed:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <CheckBox IsChecked="{Binding Game.IsCompleted}" Grid.Row="5" Grid.Column="1"/>
+
+
+            <Grid Grid.Row="6" Grid.ColumnSpan="2" Margin="0,20,0,0">
+
+                <Button Content="Save"
+                        Width="150"
+                        Height="40"
+                        Padding="6,2"
+                        FontSize="16"
+                        Command="{Binding SaveCommand}"
+                        HorizontalAlignment="Left"
+                        Margin="170,46,0,60"/>
+            </Grid>
+
+        </Grid>
+    </AdornerDecorator>
+</Window>

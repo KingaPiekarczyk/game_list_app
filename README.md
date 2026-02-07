@@ -2,7 +2,7 @@
 
 ## Screenshots 
 1. Main window
-![Main window](Read_me_files/Mainwindow.jpg)
+![Main window](games_list_app/Read_me_files/Mainwindow.jpg)
 2. Add/Edit window
 ![Add/Edit window](Read_me_files/Add_Edit_Window.jpg)
 

@@ -1,11 +1,11 @@
 # games_list_app
 
 ## Screenshots 
-1. Main window
-2. 
+ Main window
+ 
 ![Main window](games_list_app/Read_me_files/Mainwindow.jpg)
-3. Add/Edit window
-4. 
+ Add/Edit window
+ 
 ![Add/Edit window](games_list_app/Read_me_files/Add_Edit_Window.jpg)
 
 # Technologies Used:

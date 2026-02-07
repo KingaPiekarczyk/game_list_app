@@ -14,7 +14,7 @@
 3. adding/edit/delete existing game
 
 # Folder Structure:
-![Project Structure](public/read_me_files/tree_1.png)
+![Folder Structure](read_me_files/tree_1.png)
 
 # Author:
 Kinga Prochowicz

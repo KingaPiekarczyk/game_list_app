@@ -1,5 +1,11 @@
 # games_list_app
 
+## Screenshots 
+1. Main window
+![Main window](Read_me_files/Mainwindow.jpg)
+2. Add/Edit window
+![Add/Edit window](Read_me_files/Add_Edit_Window.jpg)
+
 # Technologies Used:
 1. #C / .Net
 2. local database SQL
@@ -14,7 +20,7 @@
 3. adding/edit/delete existing game
 
 # Folder Structure:
-![Folder Structure](read_me_files/tree_1.png)
+![Project Tree](Read_me_files/tree_1.png)
 
 # Author:
 Kinga Prochowicz

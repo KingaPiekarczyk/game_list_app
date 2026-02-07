@@ -4,7 +4,7 @@
 1. Main window
 ![Main window](games_list_app/Read_me_files/Mainwindow.jpg)
 2. Add/Edit window
-![Add/Edit window](Read_me_files/Add_Edit_Window.jpg)
+![Add/Edit window](games_list_app/Read_me_files/Add_Edit_Window.jpg)
 
 # Technologies Used:
 1. #C / .Net
@@ -20,7 +20,7 @@
 3. adding/edit/delete existing game
 
 # Folder Structure:
-![Project Tree](Read_me_files/tree_1.png)
+![Project Tree](games_list_app/Read_me_files/tree_1.png)
 
 # Author:
 Kinga Prochowicz
